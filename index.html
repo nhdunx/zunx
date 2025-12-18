@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dũng Đại Ka</title>
+        
+        <link rel="icon" href="https://sv2.anhsieuviet.com/2025/09/03/anh-gai-xinh-douyin-06.webp">
+        <meta name="description" content="Chuyên cung cấp giải pháp phần mềm, hỗ trợ công nghệ 24/7. Uy tín - Chất lượng - Nhanh gọn.">
+    
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        
+        <style>
+        /* --- CẤU HÌNH CHUNG --- */
+        :root {
+            --primary-pink: #ff99cc;
+            --bg-overlay: rgba(0, 0, 0, 0.6);
+            --glass-bg: rgba(20, 20, 20, 0.7);
+            --text-color: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            color: var(--text-color);
+            position: relative;
+            background-color: #1a1a1a;
+        }
+
+        /* --- HÌNH NỀN --- */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .background-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Thay link ảnh Elaina tại đây */
+            background-image: url('https://sv2.anhsieuviet.com/2025/12/18/hinh-nen-gai-xinh-hd.jpg'); 
+            background-position: center;
+            background-size: cover;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
+        }
+
+        /* --- NAVIGATION --- */
+        .navbar {
+            position: absolute;
+            top: 30px;
+            left: 50px;
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .nav-btn {
+            padding: 8px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            background: transparent;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: capitalize;
+            font-size: 14px;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--primary-pink);
+            color: var(--primary-pink);
+        }
+
+        .nav-btn.active {
+            background-color: var(--primary-pink);
+            border-color: var(--primary-pink);
+            color: #000;
+        }
+
+        /* --- CONTENT SECTION --- */
+        .content-section {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            padding: 0 50px;
+            display: none; 
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .content-section.centered-content.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-45%); }
+            to { opacity: 1; transform: translateY(-50%); }
+        }
+
+        /* --- TAB 1: OVERVIEW --- */
+        .hero-title { font-size: 4rem; font-weight: 700; margin-bottom: 10px; }
+        .hero-subtitle { font-size: 1.5rem; color: var(--primary-pink); margin-bottom: 20px; font-weight: 500; }
+        .hero-desc { font-size: 1rem; opacity: 0.8; margin-bottom: 40px; }
+        .skills-container h3 { margin-bottom: 15px; font-size: 1.2rem; }
+        .skill-tags { display: flex; gap: 10px; }
+        .tag { border: 1px solid var(--primary-pink); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; color: white; }
+
+        /* --- TAB 2: PROJECTS --- */
+        .projects-header {
+            text-align: center; font-size: 2.5rem; margin-bottom: 40px; font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 153, 204, 0.5);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 15px rgba(255, 153, 204, 0.2);
+        }
+
+        .project-title { color: var(--primary-pink); font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; }
+        .project-desc { font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px; line-height: 1.5; min-height: 40px; }
+        .project-tech { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tech-badge { background: rgba(255, 153, 204, 0.2); color: var(--primary-pink); padding: 4px 10px; border-radius: 5px; font-size: 0.75rem; font-weight: 600; }
+
+        /* --- TAB 3: CONTACT --- */
+        .contact-wrapper {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; width: 100%; max-width: 800px;
+        }
+        .contact-title { font-size: 3rem; margin-bottom: 20px; }
+        .contact-title span { color: var(--primary-pink); }
+        .pixel-art {
+            width: 150px; height: 150px;
+            background-image: url('https://i.pinimg.com/originals/af/8d/61/af8d61793744955b2062635467406a45.gif');
+            background-size: contain; background-repeat: no-repeat; background-position: center;
+            margin-bottom: 20px;
+        }
+        .contact-text { margin-bottom: 30px; opacity: 0.8; }
+        .social-icons { display: flex; gap: 20px; }
+        
+        .social-btn {
+            width: 45px; height: 45px; border-radius: 50%; border: 2px solid white;
+            display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+            color: white; text-decoration: none; transition: 0.3s;
+        }
+        .social-btn:hover { background: var(--primary-pink); border-color: var(--primary-pink); color: black; }
+
+        /* --- MUSIC PLAYER --- */
+        .music-player {
+            position: fixed; bottom: 30px; right: 30px; background: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px; border-radius: 30px; display: flex; align-items: center; gap: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 0 15px rgba(0,0,0,0.5); z-index: 20;
+        }
+        .song-info { text-align: right; }
+        .song-name { font-size: 0.8rem; color: var(--primary-pink); font-weight: bold; }
+        .artist { font-size: 0.7rem; opacity: 0.7; }
+        .controls i { margin: 0 5px; cursor: pointer; color: white; }
+        .avatar-circle {
+            width: 40px; height: 40px; border-radius: 50%;
+            background-image: url('https://i.pinimg.com/736x/a9/22/13/a922132c00ba511ee24c2d197090fc3b.jpg');
+            background-size: cover; border: 2px solid var(--primary-pink);
+        }
+
+        /* --- MODAL POPUP STYLE --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8); z-index: 100;
+            display: none; justify-content: center; align-items: center;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.open { display: flex; opacity: 1; }
+        .modal-content {
+            background: rgba(20, 20, 20, 0.9); border: 2px solid var(--primary-pink);
+            border-radius: 20px; padding: 40px; width: 90%; max-width: 600px;
+            text-align: center; position: relative; transform: scale(0.8);
+            transition: transform 0.3s ease; box-shadow: 0 0 30px rgba(255, 153, 204, 0.3);
+        }
+        .modal-overlay.open .modal-content { transform: scale(1); }
+        .close-modal {
+            position: absolute; top: 15px; right: 20px; font-size: 1.5rem;
+            color: white; cursor: pointer; transition: 0.2s;
+        }
+        .close-modal:hover { color: var(--primary-pink); }
+        .modal-pixel-img {
+            width: 100px; height: 100px;
+            background-image: url('https://i.pinimg.com/originals/af/8d/61/af8d61793744955b2062635467406a45.gif');
+            background-size: contain; background-repeat: no-repeat; background-position: center;
+            margin: 0 auto 15px auto;
+        }
+        .modal-title { font-size: 2rem; color: var(--primary-pink); margin-bottom: 20px; font-weight: 700; }
+        .modal-badges { display: flex; justify-content: center; gap: 5px; margin-bottom: 20px; flex-wrap: wrap; }
+        .modal-badges img { height: 20px; }
+        .visitor-counter { height: 60px; margin-bottom: 30px; display: flex; justify-content: center; align-items: center; }
+        .visitor-counter img { height: 100%; object-fit: contain; }
+        .modal-action-btn {
+            display: inline-block; background-color: var(--primary-pink); color: #000;
+            padding: 12px 30px; border-radius: 8px; text-decoration: none;
+            font-weight: 700; font-size: 0.9rem; transition: 0.3s;
+        }
+        .modal-action-btn:hover { background-color: white; transform: translateY(-2px); box-shadow: 5px 15px rgba(255, 255, 255, 0.3); }
+
+        @media (max-width: 768px) {
+            .navbar { left: 50%; transform: translateX(-50%); top: 20px; width: auto; justify-content: center; }
+            .content-section { padding: 0 20px; text-align: center; }
+            .hero-title { font-size: 2.5rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .music-player { bottom: 10px; right: 10px; padding: 8px 15px; }
+            .modal-content { padding: 20px; width: 95%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-container">
+        <div class="background-image"></div>
+        <div class="overlay"></div>
+    </div>
+
+    <nav class="navbar">
+        <button class="nav-btn active" onclick="switchTab('overview')">Thông Tin</button>
+        <button class="nav-btn" onclick="switchTab('projects')">Các Dự Án</button>
+        <button class="nav-btn" onclick="switchTab('contact')">Liên Hệ </button>
+    </nav>
+
+    <section id="overview" class="content-section active">
+        <div style="max-width: 800px;">
+            <h1 class="hero-title">Dũng Đại Ka</h1>
+            <h2 class="hero-subtitle">Ngáo ngơ lơ tơ mơ nhất quả đất ≧◡≦</h2>
+            <p class="hero-desc">Không biết gì về hack đâu nên đừng hỏi gì  ~~~</p>
+            <div class="skills-container">
+                <h3>Kỹ Năng Chính</h3>
+                <div class="skill-tags">
+                    <span class="tag">TFT Vàng Đoàn</span>
+                    <span class="tag">Đèn Pin AOV</span>
+                    <span class="tag">Designer Fulltime</span>
+                    <span class="tag">Bốc Phét </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="content-section">
+        <div style="width: 100%;">
+            <h2 class="projects-header">Thông Tin Chính</h2>
+            <div class="projects-grid">
+                
+                <div class="project-card" onclick="openModal('project-modal-1')">
+                    <h3 class="project-title">Nhóm Đèn Pin AOV</h3>
+                    <p class="project-desc">Vào mà đéo nhắn gì thì kick hết, có tương tác thì có hack ngon chơi</p>
+                    <div class="project-tech">
+                        <span class="tech-badge">JavaScript</span>
+                        <span class="tech-badge">TypeScript</span>
+                        <span class="tech-badge">CSS</span>
+                        <span class="tech-badge">Node.js</span>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="openModal('project-modal-2')">
+                    <h3 class="project-title">Kênh Thông Báo </h3>
+                    <p class="project-desc">Nơi cung cấp Hắc Free ghẻ lở nhất thị trường</p>
+                    <div class="project-tech">
+                        <span class="tech-badge">YSM</span>
+                        <span class="tech-badge">3D Models</span>
+                        <span class="tech-badge">Community Project</span>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="openModal('project-modal-3')">
+                    <h3 class="project-title">Mua Chứng Chỉ Inbox</h3>
+                    <p class="project-desc">Chứng chỉ IOS cam kết rẻ nhất nhì thị trường<br> (Chỉ bán UNBAN nhé)</p>
+                    <div class="project-tech">
+                        <span class="tech-badge">Node.js</span>
+                        <span class="tech-badge">Discord.js</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="content-section centered-content">
+        <div class="contact-wrapper">
+            <h2 class="contact-title">Liên Hệ <span>Tao</span></h2>
+            <div class="modal-pixel-img" style="background-image: url('https://sv2.anhsieuviet.com/2025/12/18/1a0ff91ba982c668c4b876bde4aee374.jpg'); width: 80%; max-width: 400px; height: 250px; background-size: cover; background-repeat: no-repeat; background-position: center; border-radius: 20px; margin: 0 auto 20px auto;"></div>
+           
+            <p class="contact-text">Nhắn tin vào luôn vấn đề, Alo, Lo = Block.</p>
+            
+            <div class="social-icons">
+                <a href="https://www.facebook.com/dec09.zunq" target="_blank" class="social-btn" title="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                
+                <a href="https://t.me/sadboizm" target="_blank" class="social-btn" title="Telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                
+                <a href="https://github.com/nhdunx" target="_blank" class="social-btn" title="Github">
+                    <i class="fab fa-github"></i>
+                </a>
+                
+                <a href="https://www.tiktok.com/@wish4.love" target="_blank" class="social-btn" title="TikTok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                
+                <a href="https://buymeacoffee.com/" target="_blank" class="social-btn" title="Donate">
+                    <i class="fas fa-mug-hot"></i>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="project-modal-1" class="modal-overlay" onclick="closeModal(event, 'project-modal-1')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-modal" onclick="forceCloseModal('project-modal-1')">&times;</span>
+         
+            <div class="modal-pixel-img" style="background-image: url('https://sv2.anhsieuviet.com/2025/12/18/images-1.jpg');"></div>
+            <h2 class="modal-title">Nhóm Cung Cấp Đèn Pin</h2>
+            <div class="modal-badges">
+                <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License">
+                <img src="https://img.shields.io/badge/forks-10-blue?style=flat-square" alt="Forks">
+                <img src="https://img.shields.io/badge/stars-77-blue?style=flat-square" alt="Stars">
+                <img src="https://img.shields.io/badge/Join%20Community-1.5k%20online-7289da?style=flat-square" alt="Discord">
+            </div>
+            <div class="visitor-counter">
+                <img src="https://count.getloli.com/get/@elainatheme?theme=rule34" alt="Moe Counter">
+            </div>
+            <a href="https://t.me/dunxaov/" target="_blank" class="modal-action-btn">
+                Tham Gia Ngay
+            </a>
+        </div>
+    </div>
+    <div id="project-modal-2" class="modal-overlay" onclick="closeModal(event, 'project-modal-2')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-modal" onclick="forceCloseModal('project-modal-2')">&times;</span>
+            <div class="modal-pixel-img" style="background-image: url('https://sv2.anhsieuviet.com/2025/12/18/images.jpg');"></div>
+            <h2 class="modal-title">Kênh Thông Báo </h2>
+            <div class="modal-badges">
+                <img src="https://img.shields.io/badge/models-500+-orange?style=flat-square" alt="Models">
+                <img src="https://img.shields.io/badge/license-CC0-green?style=flat-square" alt="License">
+                <img src="https://img.shields.io/badge/community-active-blue?style=flat-square" alt="Community">
+            </div>
+            <div class="visitor-counter">
+                <img src="https://count.getloli.com/get/@ysmrepo?theme=rule34" alt="Moe Counter">
+            </div>
+            <a href="https://t.me/nhdunx/" target="_blank" class="modal-action-btn">
+                Tham Gia Ngay
+            </a>
+        </div>
+    </div>
+    <div id="project-modal-3" class="modal-overlay" onclick="closeModal(event, 'project-modal-3')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-modal" onclick="forceCloseModal('project-modal-3')">&times;</span>
+            <div class="modal-pixel-img" style="background-image: url('https://sv2.anhsieuviet.com/2025/12/18/meme-meo-khoc-cute-4-27-09-36-07.jpg');"></div>
+            <h2 class="modal-title">Liên Hệ Mua Đi Đói Lắm Rồi</h2>
+            <div class="modal-badges">
+                <img src="https://img.shields.io/badge/discord.js-v14-blue?style=flat-square" alt="Discord.js">
+                <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License">
+                <img src="https://img.shields.io/badge/status-stable-brightgreen?style=flat-square" alt="Status">
+            </div>
+            <div class="visitor-counter">
+                <img src="https://count.getloli.com/get/@autobanbot?theme=rule34" alt="Moe Counter">
+            </div>
+            <a href="https://t.me/sadboizm/" target="_blank" class="modal-action-btn">
+                Liên Hệ Ngay Để Mua
+            </a>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <div class="music-player">
+        <div class="song-info">
+            <div class="song-name">Kiếp Đỏ Đen</div>
+            <div class="artist">Duy Mạnh</div>
+        </div>
+    
+        <audio id="myAudio" src="mtp.mp3"></audio>
+    
+        <div class="controls">
+            <i class="fas fa-backward"></i>
+            <i class="fas fa-play" id="playBtn" onclick="toggleMusic()" style="cursor: pointer;"></i>
+            <i class="fas fa-forward"></i>
+        </div>
+        
+        <img src="https://sv2.anhsieuviet.com/2025/10/27/photo_2025-07-14_23-00-51.jpg" class="avatar-circle" id="rotatingAvatar" alt="Disk">
+    </div>
+    
+    <style>
+        .avatar-circle {
+            /* Đảm bảo ảnh luôn tròn và kích thước chuẩn */
+            width: 50px;  /* Đại ca có thể chỉnh to nhỏ tùy ý */
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            
+            /* Viền và hiệu ứng mượt */
+            border: 2px solid #ff69b4; 
+            transition: all 0.3s ease;
+        }
+    
+        /* Class này sẽ được JS thêm vào để làm ảnh quay */
+        .rotating {
+            animation: spin 4s linear infinite;
+        }
+    
+        /* Định nghĩa vòng quay 360 độ */
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+    
+    <script>
+        // Lấy các phần tử cần thiết
+        var audio = document.getElementById("myAudio");
+        var playBtn = document.getElementById("playBtn");
+        var avatar = document.getElementById("rotatingAvatar"); // Lấy cái ảnh có id này
+    
+        function toggleMusic() {
+            if (audio.paused) {
+                // --- KHI BẬT NHẠC ---
+                audio.play(); 
+                
+                // Đổi icon Play thành Pause
+                playBtn.classList.remove('fa-play');
+                playBtn.classList.add('fa-pause');
+                
+                // Thêm class quay cho ảnh
+                if(avatar) avatar.classList.add('rotating');
+                
+            } else {
+                // --- KHI TẮT NHẠC ---
+                audio.pause(); 
+                
+                // Đổi icon Pause về Play
+                playBtn.classList.remove('fa-pause');
+                playBtn.classList.add('fa-play');
+                
+                // Gỡ class quay để ảnh dừng lại
+                if(avatar) avatar.classList.remove('rotating');
+            }
+        }
+    </script>
+
+    <script>
+        function switchTab(tabId) {
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active'));
+            const clickedBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(tabId));
+            if (clickedBtn) clickedBtn.classList.add('active');
+            const targetSection = document.getElementById(tabId);
+            if (targetSection) targetSection.classList.add('active');
+        }
+
+        // Modal logic
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => { modal.classList.add('open'); }, 10);
+            }
+        }
+        function closeModal(event, modalId) {
+            const modal = document.getElementById(modalId);
+            if (event.target === modal) {
+                forceCloseModal(modalId);
+            }
+        }
+        function forceCloseModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('open');
+                setTimeout(() => { modal.style.display = 'none'; }, 300);
+            }
+        }
+    </script>
+</body>
+</html>
